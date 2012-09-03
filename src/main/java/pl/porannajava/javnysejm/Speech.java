@@ -51,10 +51,10 @@ public class Speech extends IdEntity {
 		this.considerationId = builder.getInt("rozpatrywanie_id");
 		this.speakerFunctionId = builder.getInt("mowca_funkcja_id");
 		this.speakerId = builder.getInt("mowca_id");
-		this.deputyId = builder.getInt("posel_id");
+		this.deputyId = builder.getInt("posel_id", false);
 
-		this.timeStart = builder.getDateTime("time_start");
-		this.timeStop = builder.getDateTime("time_stop");
+		this.timeStart = builder.getDateTime("time_start", false);
+		this.timeStop = builder.getDateTime("time_stop", false);
 
 		this.positionId = builder.getInt("stanowisko_id");
 

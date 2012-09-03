@@ -40,6 +40,10 @@ public abstract class IdEntityBuilder<T extends IdEntity> {
 		this.name = name;
 		this.properties = JsonSupport.getStringsMap(UrlSupport
 				.getInfoUrlResponse(this.name, this.id).getBody());
+		if (this.properties == null) {
+			throw new JSException("error while parsing properties for id:" + id
+					+ ", name=" + name);
+		}
 	}
 
 	protected abstract T build();
@@ -70,12 +74,17 @@ public abstract class IdEntityBuilder<T extends IdEntity> {
 		return date;
 	}
 
-	protected LocalDateTime getDateTime(String code) {
+	protected LocalDateTime getDateTime(String code, boolean required) {
 		LocalDateTime dateTime = null;
 		try {
-			dateTime = StringConverter.getDateTime(this.getPropertyValue(code));
+			String stringValue = this.getPropertyValue(code, required);
+			if (stringValue != null) {
+				dateTime = StringConverter.getDateTime(stringValue);
+			}
 		} catch (IllegalArgumentException e) {
-			throw new JSException(e);
+			if (required) {
+				throw new JSException(e);
+			}
 		}
 		return dateTime;
 	}

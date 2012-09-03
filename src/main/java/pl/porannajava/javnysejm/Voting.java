@@ -137,7 +137,7 @@ public class Voting extends IdEntity {
 		this.considerationId = builder.getInt("rozpatrywanie_id");
 		this.speechId = builder.getInt("wystapienie_id");
 		this.number = builder.getInt("nr");
-		this.time = builder.getDateTime("time");
+		this.time = builder.getDateTime("time", false);
 		this.votingResult = VotingResult.of(builder.getInt("wynik"));
 		this.totalCount = builder.getInt("l");
 		this.votersCount = builder.getInt("g");

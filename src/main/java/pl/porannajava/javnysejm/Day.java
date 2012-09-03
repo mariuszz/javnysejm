@@ -41,8 +41,8 @@ public class Day extends IdEntity {
 	protected Day(Builder builder) {
 		super(builder);
 		this.date = builder.getDate("data");
-		this.timeStart = builder.getDateTime("time_start");
-		this.timeStop = builder.getDateTime("time_stop");
+		this.timeStart = builder.getDateTime("time_start", false);
+		this.timeStop = builder.getDateTime("time_stop", false);
 		this.documentItemId = builder.getInt("dokument_id");
 		this.sessionId = builder.getInt("posiedzenie_id");
 
