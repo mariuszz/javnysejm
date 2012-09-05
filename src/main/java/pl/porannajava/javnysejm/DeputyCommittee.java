@@ -19,12 +19,13 @@ package pl.porannajava.javnysejm;
 import java.util.List;
 import java.util.Map;
 
-import org.joda.time.DateTime;
 import org.joda.time.IllegalFieldValueException;
-import org.joda.time.Interval;
 import org.joda.time.LocalDate;
 
 import pl.porannajava.javnysejm.support.StringConverter;
+
+import com.google.common.collect.Range;
+import com.google.common.collect.Ranges;
 
 /**
  * "Komisja posła" entity representation
@@ -34,13 +35,14 @@ import pl.porannajava.javnysejm.support.StringConverter;
  */
 public class DeputyCommittee extends AbstractInternalEntity {
 	private int committeeId;
-	private Interval interval;
+	private Range<LocalDate> interval;
 	private String function;
 
 	protected DeputyCommittee(Map<String, String> properties) {
 		this.committeeId = StringConverter.getInteger(properties
 				.get("komisja_id"));
 
+		LocalDate fromDate = StringConverter.getDate(properties.get("od"));
 		LocalDate toDate = null;
 		try {
 			toDate = StringConverter.getDate(properties.get("do"));
@@ -48,13 +50,12 @@ public class DeputyCommittee extends AbstractInternalEntity {
 			// nothing to do.
 			// trying to catch "0000-00-00" date
 		}
-		// the last day on Earth :)
-		DateTime toDateTime = new DateTime(Long.MAX_VALUE);
+
 		if (toDate != null) {
-			toDateTime = toDate.toDateTimeAtStartOfDay();
+			this.interval = Ranges.closed(fromDate, toDate);
+		} else {
+			this.interval = Ranges.atLeast(fromDate);
 		}
-		this.interval = new Interval(StringConverter.getDate(
-				properties.get("od")).toDateTimeAtStartOfDay(), toDateTime);
 		this.function = StringConverter.getUnescapedString(properties
 				.get("funkcja"));
 	}
@@ -63,7 +64,7 @@ public class DeputyCommittee extends AbstractInternalEntity {
 		return this.committeeId;
 	}
 
-	public Interval getInterval() {
+	public Range<LocalDate> getInterval() {
 		return this.interval;
 	}
 
