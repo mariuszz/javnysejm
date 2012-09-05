@@ -36,15 +36,15 @@ for (int i: clubIds)
 }
 ```
 Powyższy kod wyświetli następujący rezultat:
-``
-Club{id=1, name=Platforma Obywatelska, shortName=PO}
-Club{id=2, name=Prawo i Sprawiedliwość, shortName=PiS}
-Club{id=3, name=Polskie Stronnictwo Ludowe, shortName=PSL}
-Club{id=4, name=Sojusz Lewicy Demokratycznej, shortName=SLD}
-Club{id=5, name=Ruch Palikota, shortName=RP}
-Club{id=6, name=Solidarna Polska, shortName=SP}
-Club{id=7, name=Niezrzeszeni, shortName=Niezrzeszeni}
-``
+
+	Club{id=1, name=Platforma Obywatelska, shortName=PO}
+	Club{id=2, name=Prawo i Sprawiedliwość, shortName=PiS}
+	Club{id=3, name=Polskie Stronnictwo Ludowe, shortName=PSL}
+	Club{id=4, name=Sojusz Lewicy Demokratycznej, shortName=SLD}
+	Club{id=5, name=Ruch Palikota, shortName=RP}
+	Club{id=6, name=Solidarna Polska, shortName=SP}
+	Club{id=7, name=Niezrzeszeni, shortName=Niezrzeszeni}
+
 
 **JavnySejm** został napisany z troską o możliwie jak najrzadsze odwoływanie się do serwera sejmometru.
 W tym celu, intensywnie wykorzystuje [Builder pattern](http://en.wikipedia.org/wiki/Builder_pattern).
@@ -59,9 +59,10 @@ Deputy deputy = new Deputy.Builder(13).build();
 
 Pobrane dane wyglądają następująco:
 
-``
-Deputy{id=13, code=marek-ast, fullName=Marek Ast, firstName=Marek, lastName=Ast, birthDate=1958-09-27, birthPlace=Zielona Góra, clubId=2, electoralDistrict=8, votesNumber=12598, profession=radca prawny, speeches=[], votings=[], deputyCommittees=[], deputyFinancialStatements=[], deputyFinancialBenefitsReports=[]}
-``
+
+	Deputy{id=13, code=marek-ast, fullName=Marek Ast, firstName=Marek, lastName=Ast, birthDate=1958-09-27, birthPlace=Zielona Góra, clubId=2,
+	electoralDistrict=8, votesNumber=12598, profession=radca prawny, speeches=[], votings=[], deputyCommittees=[], deputyFinancialStatements=[], deputyFinancialBenefitsReports=[]}
+
 
 Jeżeli poza podstawowymi danymi chcemy pobrać również informacje o komisjach, w których pracuje poseł, wykonujemy następujący kod:
 
@@ -71,12 +72,13 @@ Deputy deputy = new Deputy.Builder(13).withDeputyCommittees().build();
 
 Wynik to:
 
-``
-Deputy{id=13, code=marek-ast, fullName=Marek Ast, firstName=Marek, lastName=Ast, birthDate=1958-09-27, birthPlace=Zielona Góra, clubId=2, electoralDistrict=8, votesNumber=12598, profession=radca prawny, speeches=[], votings=[],
-deputyCommittees=[DeputyCommittee{committeeId=18, interval=[2012-01-13‥+∞), function=},
-DeputyCommittee{committeeId=8, interval=[2011-11-17‥+∞), function=zastępca przewodniczącego},
-DeputyCommittee{committeeId=30, interval=[2011-11-17‥+∞), function=}], deputyFinancialStatements=[], deputyFinancialBenefitsReports=[]}
-``
+
+	Deputy{id=13, code=marek-ast, fullName=Marek Ast, firstName=Marek, lastName=Ast, birthDate=1958-09-27, birthPlace=Zielona Góra, clubId=2,
+	electoralDistrict=8, votesNumber=12598, profession=radca prawny, speeches=[], votings=[],
+	deputyCommittees=[DeputyCommittee{committeeId=18, interval=[2012-01-13‥+∞), function=},
+	DeputyCommittee{committeeId=8, interval=[2011-11-17‥+∞), function=zastępca przewodniczącego},
+	DeputyCommittee{committeeId=30, interval=[2011-11-17‥+∞), function=}], deputyFinancialStatements=[], deputyFinancialBenefitsReports=[]}
+
 
 Jeśli chcemy dowiedzieć się czegoś więcej o komisjach posła, musimy wykonać następujący kod:
 
@@ -90,11 +92,11 @@ for (DeputyCommittee deputyCommittee: deputy.getDeputyCommittees())
 
 W ten sposób, otrzymamy następującą listę:
 
-``
-Committee{id=18, name=Komisja Nadzwyczajna do spraw zmian w kodyfikacjach, code=NKK, contact=tel.: (22) 694-21-30, 694-18-26}
-Committee{id=8, name=Komisja Mniejszości Narodowych i Etnicznych, code=MNE, contact=tel.: (22) 694-18-29, 694-20-48}
-Committee{id=30, name=Komisja Sprawiedliwości i Praw Człowieka, code=SPC, contact=tel.: (22) 694-23-93, 694-24-44}
-``
+
+	Committee{id=18, name=Komisja Nadzwyczajna do spraw zmian w kodyfikacjach, code=NKK, contact=tel.: (22) 694-21-30, 694-18-26}
+	Committee{id=8, name=Komisja Mniejszości Narodowych i Etnicznych, code=MNE, contact=tel.: (22) 694-18-29, 694-20-48}
+	Committee{id=30, name=Komisja Sprawiedliwości i Praw Człowieka, code=SPC, contact=tel.: (22) 694-23-93, 694-24-44}
+
 
 
 Analogicznie możemy uzyskać dostęp do pozostałych danych udostępnianych przez Sejmometr.
